@@ -127,10 +127,10 @@ url = st.text_input('请输入你想爬取的网站的url：',placeholder='例�
 if st.button('查询'):
     if url.strip() !='':
         try: 
-            req = requests.get(url,timeout=5000)
+            req = requests.get(url)
             encoding = req.encoding if 'charset' in req.headers.get('content-type', '').lower() else None
             soup = BeautifulSoup(req.content, 'html.parser', from_encoding=encoding)
-            nav_items =soup.find_all('div')+soup.find_all('a')+soup.find_all('span')
+            nav_items =soup.body
             if(data_processing(nav_items) != {}):
                 with st.spinner("加载中..."):
                     time.sleep(2)
